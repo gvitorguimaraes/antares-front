@@ -1,0 +1,55 @@
+<body class="text-center">
+
+    <div id="card-login" class="card">
+        <div class="card-body">
+            <form class="form-signin">
+                <a routerLink="/">
+                    <img 
+                        id="antares-logo"
+                        class="mb-4" 
+                        src="../assets/imgs/antares-logo.svg" 
+                        alt="" 
+                        width="150" 
+                        height="150"
+                    >
+                </a>
+                <div class="input-container">
+                    <i class="fa fa-user"></i>
+                    <input 
+                        type="email" 
+                        id="inputEmail" 
+                        class="form-control" 
+                        placeholder="email" 
+                        required autofocus
+                        [(ngModel)]="loginForm.username"
+                        name="email"
+                    >
+                </div>
+
+                <div class="input-container">
+                    <i class="fa fa-lock"></i>
+                    <input 
+                        type="password" 
+                        id="inputPassword" 
+                        class="form-control" 
+                        placeholder="senha" 
+                        required
+                        [(ngModel)]="loginForm.password"
+                        name="password"
+                    >
+                </div>
+                
+                <button 
+                    class="btn btn-lg btn-danger btn-block" 
+                    type="submit"
+                    (click)="login()"
+                >
+                    login
+                </button>
+
+            <p style="margin-top: 20px;"><a href="">Esqueceu a senha?</a></p> 
+            <p><a routerLink="/register">Cadastre-se</a></p> 
+            </form>
+        </div>
+    </div>
+</body>

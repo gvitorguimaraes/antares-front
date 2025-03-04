@@ -1,0 +1,50 @@
+<body class="text-center">
+
+    <div id="card-login" class="card">
+        <div class="card-body">
+            <h2 style="margin-bottom: 30px;">Criar conta</h2>
+
+            <form class="form-signin">
+                
+                <input 
+                    type="text" 
+                    id="inputNome" 
+                    class="form-control" 
+                    placeholder="nome" 
+                    required autofocus
+                    [(ngModel)]="registerForm.name"
+                    name="name"
+                >
+                <input 
+                    type="email" 
+                    id="inputEmail" 
+                    class="form-control" 
+                    placeholder="email" 
+                    required autofocus
+                    [(ngModel)]="registerForm.email"
+                    name="email"
+                >
+                <input 
+                    type="password" 
+                    id="inputPassword" 
+                    class="form-control" 
+                    placeholder="senha" 
+                    required
+                    [(ngModel)]="registerForm.password"
+                    name="password"
+                >
+
+                <p>Já possui uma conta? <a routerLink="/login">Login</a></p>
+                
+                <button 
+                    class="btn btn-lg btn-danger btn-block" 
+                    type="submit"
+                    (click)="register()"
+                >
+                    Registrar
+                </button>
+            
+            </form>
+        </div>
+    </div>
+</body>
