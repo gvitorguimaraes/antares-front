@@ -1,0 +1,5 @@
+.card-link {
+    cursor: pointer; /* Deixa o mouse em formato de mãozinha */
+    text-decoration: none;
+    color: inherit;
+  }

@@ -1,0 +1,97 @@
+/* Custom Sidebar Styles */
+body {
+    background-color: #f4f5f7;
+}
+
+.sidebar {
+    background-color: white;
+    border-right: 1px solid #e0e0e0;
+    height: 100vh;
+    padding-top: 2rem;
+}
+
+.sidebar .nav-link {
+    color: #B32416;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sidebar .nav-link.active {
+    background-color: #fcdedb;
+    color: #B32416;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #fcdedb;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.2rem;
+}
+
+/* Main Content Styles */
+.main-content {
+    background-color: white;
+    padding: 2rem;
+}
+
+.dashboard-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.actions .btn-light {
+    background-color: #f4f5f7;
+    border: none;
+}
+
+.table thead {
+    background-color: #f4f5f7;
+    color: #6c757d;
+}
+
+.table-active {
+    background-color: #fff2e6 !important;
+}
+
+/* Sidebar Details Styles */
+.sidebar-details {
+    background-color: #f4f5f7;
+    padding: 2rem;
+    height: 100vh;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+/* Pagination Styles */
+.pagination .page-item.active .page-link {
+    background-color: #B32416;
+    border-color: #B32416;
+}
+
+.pagination .page-link {
+    color: #000000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar, .sidebar-details {
+        display: none;
+    }
+    
+    .main-content {
+        width: 100%;
+    }
+}
+

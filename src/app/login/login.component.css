@@ -86,5 +86,15 @@ a:hover {
     text-decoration: underline; /* Adiciona um sublinhado ao passar o mouse */
 }
 
-
-
+#msg
+{
+     height: 2em;
+     color: #a02418;
+     background-color: #e6c3c0;
+     padding-left: 6em;
+     padding-right: 6em;
+     padding-top: 2px;
+     padding-bottom: 2px;
+     border-radius: 10px;
+     font-weight: bold;
+}
