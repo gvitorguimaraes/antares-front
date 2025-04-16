@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { AuthToken } from '../model/AuthToken';
 import { environment } from '../../environments/environment.development';
@@ -11,17 +11,47 @@ import { Tarefa } from '../model/Tarefa';
 })
 export class TarefasService {
 
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  public token : AuthToken = new AuthToken("");
 
-  public recuperarTarefas(): Observable<Tarefa[]> 
+  constructor(private authService: AuthService, private http: HttpClient) 
   {
     const token = this.authService.getLocalStorageToken();
-    return this.http.get<Tarefa[]>(environment.apiURL+"/task", { headers: { Authorization: `Bearer ${token?.token}` }})
+    if (token != null) this.token = token;
   }
 
-  public salvarTarefaExistente(tarefa: Tarefa) : Observable<Tarefa> 
+  public getHeaders() : HttpHeaders
   {
-    const token = this.authService.getLocalStorageToken();
-    return this.http.put<Tarefa>(environment.apiURL+"/task", { headers: { Authorization: `Bearer ${token?.token}` }});
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.token?.token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
+  public recuperarTarefasAtivas(): Observable<Tarefa[]> 
+  {
+    return this.http.get<Tarefa[]>(environment.apiURL+"/task", { headers: { Authorization: `Bearer ${this.token?.token}` }})
+  }
+
+  public updateTarefa(tarefa: Tarefa) : Observable<Tarefa> 
+  {
+    const headers = this.getHeaders();
+    return this.http.put<Tarefa>(environment.apiURL+"/task", tarefa, { headers });
+  }
+
+  public criarTarefa(tarefa: Tarefa) : Observable<Tarefa>
+  {
+    if (tarefa.id.length > 0) tarefa.id = "";
+    const headers = this.getHeaders();
+    return this.http.post<Tarefa>(environment.apiURL+"/task", tarefa, { headers });
+  }
+
+  public recuperarTarefa(id: string) : Observable<Tarefa>
+  {
+    return this.http.get<Tarefa>(environment.apiURL+"/task/"+id, { headers: { Authorization: `Bearer ${this.token?.token}` }})
+  }
+
+  public deletarTarefa(id: string) : Observable<any>
+  {
+    return this.http.delete(environment.apiURL+"/task/"+id, { headers: { Authorization: `Bearer ${this.token?.token}` }})
   }
 }

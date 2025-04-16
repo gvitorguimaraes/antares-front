@@ -1,60 +1,55 @@
 import { Component } from '@angular/core';
-import { Tarefa } from '../../model/Tarefa';
+import { NotasService } from '../../servicos/notas.service';
 import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TarefasService } from '../../servicos/tarefas.service';
 import { CommonModule } from '@angular/common';
+import { Nota } from '../../model/Nota';
 
 @Component({
-  selector: 'app-tarefas',
+  selector: 'app-notas',
   standalone: true,
-  imports: 
+  imports:  
   [
     NgbModalModule,
     CommonModule
   ],
-  templateUrl: './tarefas.component.html',
-  styleUrl: './tarefas.component.css'
+  templateUrl: './notas.component.html',
+  styleUrl: './notas.component.css'
 })
-export class TarefasComponent {
+export class NotasComponent {
 
-  listaTarefas: Tarefa[] = [];
+  listaNotas: Nota[] = [];
   mensagemErro: string | null = null;
   loading = false;
-  tarefaAcaoAtual: Tarefa = new Tarefa();
+  notaAcaoAtual: Nota = new Nota();
   modoEdicao : boolean = false;
 
-  public constructor(private modalService: NgbModal, private service: TarefasService) {}
+  public constructor(private modalService: NgbModal, private service: NotasService) {}
 
   ngOnInit()
   {
     this.loading = true;
 
     this.modoEdicao = false;
-    this.recuperarTarefasAtivas();
+    this.recuperarNotasAtivas();
 
     this.loading = false;
   }
 
-  openModal(content: any, tarefa: Tarefa) 
-  {
-    this.tarefaAcaoAtual = tarefa;
-    this.modalService.open(content, { centered: true });
-  }
 
-  private recuperarTarefasAtivas(): void 
+  private recuperarNotasAtivas(): void 
   {
     this.loading = true;
-    this.service.recuperarTarefasAtivas().subscribe
+    this.service.recuperarNotasAtivas().subscribe
       ({
-        next: (tarefas: Tarefa[]) => 
+        next: (Notas: Nota[]) => 
           {
-            this.listaTarefas = tarefas;
+            this.listaNotas = Notas;
             this.loading=false; 
           },
         error: (error) => 
           {
             this.mensagemErro = error;
-            this.listaTarefas = [];
+            this.listaNotas = [];
             this.loading=false; 
           }
       });
@@ -65,14 +60,14 @@ export class TarefasComponent {
     this.modoEdicao = true;
   }
 
-  public updateTarefa()
+  public updateNota()
   {
     this.loading = true;
-    this.service.updateTarefa(this.tarefaAcaoAtual).subscribe
+    this.service.updateNota(this.notaAcaoAtual).subscribe
       ({
-        next: (tarefa: Tarefa) => 
+        next: (Nota: Nota) => 
           {
-            this.recuperarTarefasAtivas();
+            this.recuperarNotasAtivas();
             this.loading=false; 
             this.modoEdicao = true;
           },
@@ -88,14 +83,14 @@ export class TarefasComponent {
   {
   }
   
-  public criarTarefa()
+  public criarNota()
   {
     this.loading = true;
-    this.service.criarTarefa(this.tarefaAcaoAtual).subscribe
+    this.service.criarNota(this.notaAcaoAtual).subscribe
       ({
-        next: (tarefa: Tarefa) => 
+        next: (Nota: Nota) => 
           {
-            this.recuperarTarefasAtivas();
+            this.recuperarNotasAtivas();
             this.loading=false; 
           },
         error: (error) => 
@@ -106,14 +101,14 @@ export class TarefasComponent {
       });
   }
 
-  public recuperarTarefa(id : string)
+  public recuperarNota(id : string)
   {
     this.loading = true;
-    this.service.recuperarTarefa(id).subscribe
+    this.service.recuperarNota(id).subscribe
       ({
-        next: (tarefa: Tarefa) => 
+        next: (Nota: Nota) => 
           {
-            this.recuperarTarefasAtivas();
+            this.recuperarNotasAtivas();
             this.loading=false; 
           },
         error: (error) => 
@@ -124,14 +119,14 @@ export class TarefasComponent {
       });
   }
 
-  public deletarTarefa(id : string)
+  public deletarNota(id : string)
   {
     this.loading = true;
-    this.service.deletarTarefa(id).subscribe
+    this.service.deletarNota(id).subscribe
       ({
-        next: (tarefa: Tarefa) => 
+        next: (Nota: Nota) => 
           {
-            this.recuperarTarefasAtivas();
+            this.recuperarNotasAtivas();
             this.loading=false; 
           },
         error: (error) => 

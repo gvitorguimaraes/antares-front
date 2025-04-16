@@ -137,5 +137,5 @@ export class HomeInternComponent {
   public tokenIsActive() : Observable<boolean>
   {
     return this.authService.tokenIsActive();
-  }
+  } 
 }
