@@ -16,7 +16,7 @@
                         >
                     </div>
 
-                    <a class="nav-link" (click)="onChangeToInicio()"><i class="fa fa-university" aria-hidden="true"></i> Inicio</a>
+                    <!-- <a class="nav-link" (click)="onChangeToInicio()"><i class="fa fa-university" aria-hidden="true"></i> Inicio</a> -->
                     <a class="nav-link" (click)="onChangeToAnotacoes()"><i class="fa fa-sticky-note" aria-hidden="true"></i> Anotações</a>
                     <!-- <a class="nav-link" (click)="onChangeToEstatisticas()"><i class="fa fa-area-chart" aria-hidden="true"></i> Estatísticas</a> -->
                     <a class="nav-link" (click)="onChangeToTarefas()"><i class="fa fa-tasks" aria-hidden="true"></i> Tarefas</a>
@@ -34,25 +34,6 @@
                         <h1 class="dashboard-title">{{mainPageTitle}}</h1>
                         <p class="text-muted">{{data}}</p>
                     </div>
-                    <div class="actions">
-
-                        <button 
-                            class="btn btn-light me-2" 
-                            *ngIf="exibirBotaoPesquisa"
-                        >
-                            <i class="fas fa-search"></i>
-                        </button>
-                        
-                        <button 
-                            id="buttonAddNew" 
-                            class="btn" 
-                            *ngIf="exibirBotaoCriarNovo"
-                        >
-                            <i class="fas fa-plus-circle"></i>
-                        </button>
-
-                    </div>
-                    
                 </div>
                 <hr style="color: #B32416; background-color: #B32416; padding-bottom: 2px;">
 
@@ -60,16 +41,9 @@
                 <!-- routes -->
                 <app-tarefas *ngIf="exibicaoDeTarefas"></app-tarefas>
                 <!-- routes -->
-                <app-tarefas *ngIf="exibicaoDeAnotacoes"></app-tarefas>
+                <app-notas *ngIf="exibicaoDeAnotacoes"></app-notas>
 
             </div>
-
-            <!-- Sidebar Details 
-            <div class="col-3 sidebar-details">
-
-
-            </div>
-            -->
         </div>
         
     </div>

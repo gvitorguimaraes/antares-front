@@ -1,50 +1,69 @@
 
-<!--
+<!-- Botões de ação -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="actions">
+
+      <!-- Botão de Pesquisa -->
+      <button 
+          class="btn btn-light me-2" 
+          *ngIf="false"
+      >
+          <i class="fas fa-search"></i>
+      </button>
+      
+      <!-- Botão de Criar novo-->
+      <button 
+          id="buttonAddNew" 
+          class="btn me-2" 
+          (click)="openModalNovaTarefa(content)"
+      >
+          <i class="fas fa-plus-circle"></i> Nova tarefa
+      </button>
+
+  </div>
+</div>
+
+<!-- TABELA -->
 <table class="table table-hover">
     <div *ngFor="let tarefa of listaTarefas" style="margin-bottom: 20px;">
-        <div (click)="openModal(content, tarefa)" class="card-link">
-            <div class="card">
-                <div class="card-header">
-                {{ tarefa.title }}
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>{{ tarefa.getDescricaoStatus() }}</p>
-                        <footer class="blockquote-footer"> {{ tarefa.getDescricaoCurta() }} </footer>
-                    </blockquote>
-                </div>
+        <div class="card">
+            <div class="card-header">
+              Status: {{ tarefa.descricaoStatus }}
+            </div>
+            <div (click)="openModal(content, tarefa)" class="card-body card-link">
+              <h5 class="card-title">{{ tarefa.title }}</h5>
+              <p class="card-text"> {{ tarefa.descricaoCurta }} </p>
+            </div>
+            <div class="text-end">
+              <button id="buttonExcluir" (click)="excluirTarefa(tarefa)" class="btn me-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
         </div>
     </div>
 </table>
 
-
+<!-- MODAL -->
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title"> {{ tarefaAcaoAtual.title }}</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <small>Data de fim: {{ tarefaAcaoAtual?.endDate | endDate }}</small>
+      <small>Data de fim: {{ tarefaAcaoAtual.endDate }}</small>
       <form>
         <div class="mb-3">
           <label for="recipient-name" class="col-form-label">Titulo:</label>
-          <input id="recipient-name" [(ngModel)]="tarefaAcaoAtual.title" [readonly]="!modoEdicao" type="text" class="form-control">
+          <input id="recipient-name" name="title" [(ngModel)]="tarefaAcaoAtual.title" [readonly]="ehSomenteVisualizacao()" type="text" class="form-control">
         </div>
         <div class="mb-3">
           <label for="message-text" class="col-form-label">Descrição:</label>
-          <textarea id="message-text"  class="form-control" ></textarea>
+          <textarea id="message-text" name="description" [(ngModel)]="tarefaAcaoAtual.description" [readonly]="ehSomenteVisualizacao()" class="form-control" ></textarea>
         </div>
       </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Fechar</button>
-    </div>
-    <div class="modal-footer">
-      <button *ngIf="!modoEdicao" type="button" class="btn btn-secondary" (click)="mudarParaAlteracao()">Alterar</button>
-    </div>
-    <div class="modal-footer">
-      <button *ngIf="modoEdicao" type="button" class="btn btn-secondary" (click)="mudarParaAlteracao()">Salvar</button>
+      <button *ngIf="exibirBotaoAlterarModal()" type="button" class="btn btn-secondary" (click)="mudarParaAlteracao()">Alterar</button>
+      <button *ngIf="exibirBotaoSalvarModal()" type="button" class="btn btn-secondary" (click)="salvarConteudoModal()">Salvar</button>
     </div>
 </ng-template>
--->
+

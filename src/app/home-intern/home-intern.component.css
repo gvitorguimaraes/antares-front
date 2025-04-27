@@ -8,6 +8,10 @@ body {
     border-right: 1px solid #e0e0e0;
     height: 100vh;
     padding-top: 2rem;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 10;
+    width: 160px;
 }
 
 .sidebar .nav-link {
@@ -34,6 +38,9 @@ body {
 .main-content {
     background-color: white;
     padding: 2rem;
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-left: 160px; /* mesma largura da sidebar */
 }
 
 .dashboard-title {

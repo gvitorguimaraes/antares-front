@@ -12,11 +12,11 @@ export class Tarefa
         this.id = '';
         this.title = '';
         this.description = '';
-        this.statusCode = '';
+        this.statusCode = 'N';
         this.endDate = new Date();
     }
 
-    public getDescricaoStatus() : string{
+    get descricaoStatus() : string {
         if (this.statusCode === 'N'){
             return 'Nova';
         }else if (this.statusCode === 'IP'){
@@ -27,12 +27,10 @@ export class Tarefa
         return '-';
     }
 
-    public getDescricaoCurta() : string{
-        
+    get descricaoCurta() : string{
         if (this.description.length >= 100){
             return this.description.substring(0, 100)+"...";
         }
-        
-        return "...";
+        return this.description;
     }
 }

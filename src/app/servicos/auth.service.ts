@@ -32,6 +32,11 @@ export class AuthService {
     }
   }
 
+  public limparTokenInvalido()
+  {
+    localStorage.removeItem("authToken");
+  }
+
   public setLocalStorageToken(authToken: AuthToken): void
   {
     localStorage.setItem("authToken", authToken.token);

@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { TarefasComponent } from '../components/tarefas/tarefas.component';
 import { Observable } from 'rxjs';
 import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotasComponent } from '../components/notas/notas.component';
 
 @Component({
   selector: 'app-home-intern',
@@ -15,6 +16,7 @@ import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
             WaitIconComponent,
             CommonModule,
             TarefasComponent,
+            NotasComponent,
             NgbModalModule
           ],
   templateUrl: './home-intern.component.html',
@@ -60,6 +62,8 @@ export class HomeInternComponent {
         if (isValid) {
           this.onChangeToInicio(); // Proceed to inicio if token is valid
         } else {
+          this.authService.limparTokenInvalido();
+          alert('A sua sessão expirou, faça login novamente!')
           this.route.navigate(['']); // Redirect to home or login if token is invalid
         }
       },

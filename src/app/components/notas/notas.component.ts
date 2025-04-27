@@ -3,6 +3,7 @@ import { NotasService } from '../../servicos/notas.service';
 import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Nota } from '../../model/Nota';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-notas',
@@ -10,7 +11,8 @@ import { Nota } from '../../model/Nota';
   imports:  
   [
     NgbModalModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './notas.component.html',
   styleUrl: './notas.component.css'

@@ -3,6 +3,7 @@ import { Tarefa } from '../../model/Tarefa';
 import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TarefasService } from '../../servicos/tarefas.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tarefas',
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: 
   [
     NgbModalModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './tarefas.component.html',
   styleUrl: './tarefas.component.css'
@@ -22,6 +24,7 @@ export class TarefasComponent {
   loading = false;
   tarefaAcaoAtual: Tarefa = new Tarefa();
   modoEdicao : boolean = false;
+  modoInclusao : boolean = false;
 
   public constructor(private modalService: NgbModal, private service: TarefasService) {}
 
@@ -29,16 +32,9 @@ export class TarefasComponent {
   {
     this.loading = true;
 
-    this.modoEdicao = false;
     this.recuperarTarefasAtivas();
 
     this.loading = false;
-  }
-
-  openModal(content: any, tarefa: Tarefa) 
-  {
-    this.tarefaAcaoAtual = tarefa;
-    this.modalService.open(content, { centered: true });
   }
 
   private recuperarTarefasAtivas(): void 
@@ -48,7 +44,7 @@ export class TarefasComponent {
       ({
         next: (tarefas: Tarefa[]) => 
           {
-            this.listaTarefas = tarefas;
+            this.listaTarefas = tarefas.map(t => Object.assign(new Tarefa(), t));
             this.loading=false; 
           },
         error: (error) => 
@@ -58,11 +54,6 @@ export class TarefasComponent {
             this.loading=false; 
           }
       });
-  }
-
-  public mudarParaAlteracao()
-  {
-    this.modoEdicao = true;
   }
 
   public updateTarefa()
@@ -82,10 +73,6 @@ export class TarefasComponent {
             this.loading=false;
           }
       });
-  }
-
-  public mudarParaInclusao()
-  {
   }
   
   public criarTarefa()
@@ -140,5 +127,80 @@ export class TarefasComponent {
             this.loading=false;
           }
       });
+  }
+
+
+
+
+  //
+  // CONTROLES MODAL
+  //
+
+  openModal(content: any, tarefa: Tarefa) 
+  {
+    this.mudarParaVisualizacao();
+    this.tarefaAcaoAtual = tarefa;
+    this.modalService.open(content, { centered: true });
+  }
+
+  openModalNovaTarefa(content: any) 
+  {
+    this.mudarParaInclusao();
+    this.tarefaAcaoAtual = new Tarefa();
+    this.modalService.open(content, { centered: true });
+  }
+
+  salvarConteudoModal()
+  {
+    if (this.modoInclusao)
+    {
+      this.criarTarefa();
+    }
+    else
+    {
+      this.updateTarefa();
+    }
+
+    this.modoInclusao = false;
+    this.modoEdicao = false;
+  }
+
+  excluirTarefa(tarefa: Tarefa)
+  {
+    this.modoInclusao = false;
+    this.modoEdicao = false;
+    this.deletarTarefa(tarefa.id);
+    this.recuperarTarefasAtivas();
+  }
+
+  public exibirBotaoAlterarModal() : boolean
+  {
+    return !this.modoEdicao && !this.modoInclusao;
+  }
+
+  public exibirBotaoSalvarModal() : boolean
+  {
+    return this.modoEdicao || this.modoInclusao;
+  }
+
+  public mudarParaAlteracao()
+  {
+    this.modoEdicao = true;
+  }
+
+  public mudarParaInclusao()
+  {
+    this.modoInclusao = true;
+  }
+
+  public mudarParaVisualizacao()
+  {
+    this.modoInclusao = false;
+    this.modoEdicao = false;
+  }
+
+  public ehSomenteVisualizacao() : boolean
+  {
+    return !this.modoInclusao && !this.modoEdicao;
   }
 }

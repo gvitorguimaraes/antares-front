@@ -3,3 +3,15 @@
     text-decoration: none;
     color: inherit;
   }
+
+#buttonAddNew
+{
+  background-color: #B32416;
+  color: white;
+}
+
+#buttonExcluir
+{
+  background-color: #B32416;
+  color: white;
+}
