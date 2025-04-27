@@ -35,6 +35,7 @@ export class RegisterComponent {
     ({
         next: (any) => {
                         this.loading = false;  
+                        alert("Sua solicitação de registro foi enviada com sucesso! Aguarde até que seu login seja liberado por um administrador.");
                         this.route.navigate(["login"]);
                       },
         error: (any) => {

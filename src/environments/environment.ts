@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL:"http://backend:8080"
+    apiURL:"https://antares.api.gvitorguimaraes.dev.br"
 };
